@@ -157,15 +157,35 @@ RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$root
 		function($scope, $routeParams, $route, $rootScope, EventsRestAPI) {
 			$scope.bid = $routeParams.bid;
 			// $scope.board = BoardService.get($scope.bid);
-      events = EventsRestAPI.query()
+      EventsRestAPI.query(function(data){
+        events = data
 
-      $scope.board = {
-        id : 1,
-        name : 'fuu',
-        description : 'test board 01',
-        events : events
-      }
+        var myDays= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
+        events.forEach(function(event) {
+          var s_date = new Date(event['start_time'])
+          var sd = myDays[s_date.getDay()]
+          var sh = s_date.getHours()
+          var sm = s_date.getMinutes()
+
+          event['start_time'] = sd + " " + sh + ":" + sm
+
+          var e_date = new Date(event['end_time'])
+          var ed = myDays[e_date.getDay()]
+          var eh = e_date.getHours()
+          var em = e_date.getMinutes()
+
+          event['end_time'] = ed + " " + eh + ":" + em
+        });
+
+        $scope.board = {
+          id : 1,
+          name : 'fuu',
+          description : 'test board 01',
+          events : events
+        }
+
+      })
 
 		}
 ]);
@@ -323,7 +343,7 @@ RicoApp.service('BoardService', [ '$rootScope', function($rootScope) {
 			id : 1,
 			board : 1,
       // TODO change in "title"
-			name : "QGIS Tool for Landslide Hazard Assessment",
+			title : "QGIS Tool for Landslide Hazard Assessment",
       subtitle: "faced on the development of openconnect VPN server",
       speakers: [
         'hello', 'world'

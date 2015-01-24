@@ -17,15 +17,15 @@
 				<div class="caption">
 					<div class="header">
 						<div class="menu">
-							<a class="btn btn-primary btn-xs new"
+							<a class="btn btn-default btn-xs"
 								href="#Gui/Users/{{user.id}}/Boards/{{board.id}}/events/{{event.id}}/cards/Create"
-								role="button"><span class="glyphicon glyphicon-plus"></span></a>
+								role="button"><span class="glyphicon glyphicon-star-empty"></span></a>
 							<a
 								class="btn btn-danger btn-xs delete event" href="#Gui/Users/{{user.id}}/Boards/{{board.id}}/events/{{event.id}}/Delete" role="button"
 								lid="" bid=""><span
 								class="glyphicon glyphicon-remove"></span></a>
 						</div>
-            <h4 class="title"><a ng-href="{{event.url}}">{{event.name}}</a></h4>
+            <h4 class="title"><a target="_blank" ng-href="{{event.url}}">{{event.title}}</a></h4>
             <small>{{event.subtitle}}</small>
 					</div>
           <div class="speaker">
