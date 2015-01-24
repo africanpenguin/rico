@@ -35,8 +35,13 @@ module.exports.process = function (server, db) {
   server.get('/events/:id', function (req, res, next) {
     events.findOne({_id: ObjectID(req.params.id)}, function (err, item) {
       assert.equal(null, err);
-      res.send(item);
-      return next();
+      if (item === null) {
+        res.send(404, 'No event found.');
+        return next();
+      } else {
+        res.send(item);
+        return next();
+      }
     });
   });
 
@@ -73,8 +78,34 @@ module.exports.process = function (server, db) {
 
   server.get('/sessions/:id', function (req, res, next) {
     sessions.findOne({url_id: req.params.id}, function (err, item) {
-      delete(item.secret);
-      res.send(item);
+      assert.equal(null, err);
+      if (item === null) {
+        res.send(404, 'No session found.');
+        return next();
+      } else {
+        delete(item.secret);
+        res.send(item);
+        return next();
+      }
+    });
+  });
+
+  server.put('/sessions/:id/:secret', function (req, res, next) {
+    sessions.findOne({url_id: req.params.id, secret: req.params.secret}, function (err, item) {
+      assert.equal(null, err);
+      if (item === null) {
+        res.send(404, 'Bad id/secret combination.');
+        return next();
+      } else {
+        sessions.update({url_id: req.params.id}, {
+          $set: {
+            favourites: req.params.favourites
+          }}, function (err, result) {
+            assert.equal(null, err);
+            res.send(result);
+            return next();
+          });
+      }
     });
   });
 };
