@@ -157,9 +157,8 @@ RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$root
 		function($scope, $routeParams, $route, $rootScope, EventsRestAPI) {
 			$scope.bid = $routeParams.bid;
 			// $scope.board = BoardService.get($scope.bid);
-      events = EventsRestAPI.query({}, function(data){
-        alert(data)
-      })
+      events = EventsRestAPI.query()
+
       $scope.board = {
         id : 1,
         name : 'fuu',
