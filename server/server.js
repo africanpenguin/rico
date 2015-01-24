@@ -28,6 +28,7 @@ var settings = require('./settings');
 MongoClient.connect(settings.mongo_url, function(err, db) {
   if (err !== null) {
     console.log(err);
+    return;
   }
   console.log('Connected to server at %s.', settings.mongo_url);
 
@@ -35,6 +36,10 @@ MongoClient.connect(settings.mongo_url, function(err, db) {
 
   server.pre(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
+    return next();
+  });
+  server.pre(function (req, res, next) {
+    console.log(req.method + ' ' + req.url);
     return next();
   });
 
