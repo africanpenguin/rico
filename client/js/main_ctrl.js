@@ -310,10 +310,10 @@ RicoApp.service('UserService', function() {
 
 RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
   return $resource('http://192.168.178.30:8080/events');
-  // return $resource('Unknown provider: ngResourceProvider');
-  /*, {}, {
-    get: { method: 'GET' , isArray: true }
-  });*/
+}]);
+
+RicoApp.factory("SessionsRestAPI", ['$resource', function($resource) {
+  return $resource('http://192.168.178.30:8080/sessions/:uid/:sid');
 }]);
 
 RicoApp.service('BoardService', [ '$rootScope', function($rootScope) {
