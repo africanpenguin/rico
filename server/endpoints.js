@@ -17,11 +17,16 @@ You should have received a copy of the GNU Affero General Public License along
 with Rico.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-module.exports.process = function (server, db) {
-  var collection = db.collection('events');
+assert = require('assert');
 
-  server.get('/test', function (req, res, next) {
-    res.send({'data': Date.now()});
-    next();
+module.exports.process = function (server, db) {
+  var events = db.collection('events');
+
+  server.get('/events', function (req, res, next) {
+    events.find().toArray(function (err, items) {
+      assert.equal(null, err);
+      res.send(items);
+      next();
+    });
   });
 };
