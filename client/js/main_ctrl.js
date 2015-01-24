@@ -17,7 +17,7 @@
  *
  */
 
-var RicoApp = angular.module("RicoApp", [ 'ngRoute', 'ngResource' ]);
+var RicoApp = angular.module("RicoApp", [ 'ngRoute', 'ngResource', 'ui.bootstrap' ]);
 
 RicoApp.config([
 		'$routeProvider',
@@ -153,8 +153,8 @@ RicoApp.controller('BoardsCtrl', [
 		}
 ]);
 
-RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI',
-		function($scope, $routeParams, $route, $rootScope, EventsRestAPI) {
+RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
+		function($scope, $routeParams, $route, $rootScope, EventsRestAPI, $modal) {
 			$scope.bid = $routeParams.bid;
 			// $scope.board = BoardService.get($scope.bid);
       EventsRestAPI.query(function(data){
@@ -187,6 +187,13 @@ RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$root
 
       })
 
+      $scope.open = function(event){
+        $modal.open({
+          title: event.title,
+          template: event.description,
+          size: 'lg',
+        })
+      };
 		}
 ]);
 
@@ -523,3 +530,4 @@ RicoApp.service('BoardService', [ '$rootScope', function($rootScope) {
 		return boards;
 	};
 } ]);
+
