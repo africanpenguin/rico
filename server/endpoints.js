@@ -52,13 +52,18 @@ module.exports.process = function (server, db) {
         depth++;
         sessions.findOne({'url_id': url_id}, gen_id);
       } else { // Base case
-        console.log(req.params);
         assert(req.params.hasOwnProperty('favourites'));
+
+        var secret = Math.random().toString(36).substr(2,7);
         sessions.insert({
           'url_id': url_id,
+          'secret': secret,
           'favourites': req.params.favourites
         }, function (err, result) {
-          res.send({'url_id': url_id});
+          res.send({
+            'url_id': url_id,
+            'secret': secret
+          });
           next();
         });
       }
@@ -68,6 +73,7 @@ module.exports.process = function (server, db) {
 
   server.get('/sessions/:id', function (req, res, next) {
     sessions.findOne({url_id: req.params.id}, function (err, item) {
+      delete(item.secret);
       res.send(item);
     });
   });
