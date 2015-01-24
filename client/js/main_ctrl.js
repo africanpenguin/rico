@@ -17,7 +17,7 @@
  *
  */
 
-var RicoApp = angular.module("RicoApp", [ 'ngRoute' ]);
+var RicoApp = angular.module("RicoApp", [ 'ngRoute', 'ngResource' ]);
 
 RicoApp.config([
 		'$routeProvider',
@@ -34,35 +34,14 @@ RicoApp.config([
 				controller : 'UsersLogoutCtrl'
 			})
 
-			.when('/Gui/Users/:uid/Boards/Create', {
-				templateUrl : 'templates/board-create.html',
-				controller : 'BoardCreateCtrl'
-			}).when('/Gui/Users/:uid/Boards/:bid', {
+			.when('/Gui/Users/:uid/Boards/:bid', {
 				templateUrl : 'templates/board-read.html',
 				controller : 'BoardReadCtrl',
-			}).when('/Gui/Users/:uid/Boards', {
-				templateUrl : 'templates/boards-read.html',
-				controller : 'BoardsReadCtrl'
-			}).when('/Gui/Boarda/:bid/Update', {
-				templateUrl : 'templates/board-create.html',
-				controller : 'BoardUpdateCtrl'
-			}).when('/Gui/Users/:uid/Boards/:bid/Delete', {
-				templateUrl : 'templates/board-delete.html',
-				controller : 'BoardDeleteCtrl'
-			}).when('/Gui/Users/:uid/Boards/Create', {
-				templateUrl : 'templates/board-create.html',
-				controller : 'BoardCreateCtrl'
 			})
 
-			.when('/Gui/Users/:uid/Boards/:bid/events/Create', {
-				templateUrl : 'templates/event-create.html',
-				controller : 'eventCreateCtrl'
-			}).when('/Gui/Users/:uid/Boards/:bid/events/:lid', {
+			.when('/Gui/Users/:uid/Boards/:bid/events/:lid', {
 				templateUrl : 'templates/event-read.html',
 				controller : 'eventReadCtrl',
-			}).when('/Gui/Users/:uid/Boards/:bid/events/:lid/Update', {
-				templateUrl : 'templates/event-create.html',
-				controller : 'eventUpdateCtrl'
 			}).when('/Gui/Users/:uid/Boards/:bid/events/:lid/Delete', {
 				templateUrl : 'templates/event-delete.html',
 				controller : 'eventDeleteCtrl'
@@ -98,19 +77,19 @@ RicoApp.controller('UsersLoginCtrl', [
 		'BoardService',
 		function($scope, $location, $rootScope, UserService, BoardService) {
 			$rootScope.user = UserService.login($scope.newuser);
+
 			if (typeof $rootScope.user.id !== "undefined") {
 				BoardService.init($rootScope.user);
-				$location.path('/Gui/Users/' + $rootScope.user.id + '/Boards');
+				$location.path('/Gui/Users/' + $rootScope.user.id + '/Boards/1');
 			}
 
 			$scope.login = function() {
 
-				// console.log($scope.user.username);
 				$rootScope.user = UserService.login($scope.newuser);
 				if (typeof $rootScope.user.id !== "undefined") {
 					BoardService.init($rootScope.user);
 					$location.path('/Gui/Users/' + $rootScope.user.id
-							+ '/Boards');
+							+ '/Boards/1');
 				} else {
 					$scope.message = 'Login error';
 				}
@@ -174,78 +153,25 @@ RicoApp.controller('BoardsCtrl', [
 		}
 ]);
 
-RicoApp.controller('BoardCreateCtrl', [ '$scope', '$http', '$rootScope',
-		'BoardService', '$location',
-		function($scope, $http, $rootScope, BoardService, $location) {
-			// $scope.boards = BoardService.event();
+RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI',
+		function($scope, $routeParams, $route, $rootScope, EventsRestAPI) {
+			$scope.bid = $routeParams.bid;
+			// $scope.board = BoardService.get($scope.bid);
+      events = EventsRestAPI.query({}, function(data){
+        alert(data)
+      })
+      $scope.board = {
+        id : 1,
+        name : 'fuu',
+        description : 'test board 01',
+        events : events
+      }
 
-			$scope.saveBoard = function() {
-				BoardService.save($scope.newboard);
-				$scope.newboard = {};
-				$location.path('/Gui/Users/:uid/Boards');
-			};
+
 		}
 ]);
 
-RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route',
-		'$rootScope', 'BoardService',
-		function($scope, $routeParams, $route, $rootScope, BoardService) {
-			$scope.bid = $routeParams.bid;
-			$scope.board = BoardService.get($scope.bid);
-		}
-]);
-
-RicoApp.controller('BoardsReadCtrl', [ '$scope', '$rootScope',
-		'UserService', function($scope, $rootScope, UserService) {
-		} ]);
-
-RicoApp.controller('BoardUpdateCtrl', [ '$scope', '$routeParams', '$route',
-		'$rootScope', 'BoardService',
-		function($scope, $routeParams, $route, $rootScope, BoardService) {
-			$scope.bid = $routeParams.bid;
-			$scope.newboard = BoardService.get($routeParams.bid);
-			$scope.message = "UpdateBoardCtrl";
-		} ]);
-
-RicoApp.controller('BoardDeleteCtrl', [ '$scope', '$http', '$routeParams',
-		'BoardService', '$location',
-		function($scope, $http, $routeParams, BoardService, $location) {
-			// $scope.boards = BoardService.event();
-			$scope.bid = $routeParams.bid;
-
-			$scope.removeBoard = function(bid) {
-				BoardService.remove(bid);
-				$location.path('/Gui/Users/:uid/Boards');
-			};
-
-			$scope.back = function() {
-				$location.path('/Gui/Users/:uid/Boards');
-			};
-
-		} ]);
-
-// TODO remove!
-RicoApp.controller('eventCreateCtrl', [
-		'$scope',
-		'$http',
-		'$routeParams',
-		'$routeParams',
-		'BoardService',
-		'$location',
-		function($scope, $http, $routeParams, $routeParams, BoardService,
-				$location) {
-			$scope.newevent = {
-				board : $routeParams.bid
-			};
-
-			$scope.saveevent = function() {
-				var bid = $scope.newevent.board;
-				BoardService.saveevent($scope.newevent);
-				$scope.newevent = {};
-				$location.path('/Gui/Users/:uid/Boards/' + bid);
-			};
-		} ]);
-
+// TODO convert in "save in Favourites"
 RicoApp.controller('eventUpdateCtrl', [
 		'$scope',
 		'$routeParams',
@@ -266,6 +192,7 @@ RicoApp.controller('eventUpdateCtrl', [
 			};
 		} ]);
 
+// TODO convert in "remove from Favourites"
 RicoApp.controller('eventDeleteCtrl', [ '$scope', '$routeParams', '$http',
 		'BoardService', '$location',
 		function($scope, $routeParams, $http, BoardService, $location) {
@@ -275,71 +202,6 @@ RicoApp.controller('eventDeleteCtrl', [ '$scope', '$routeParams', '$http',
 			$scope.removeevent = function(bid, lid) {
 				// console.log(bid + ' ' + lid);
 				BoardService.removeevent(bid, lid);
-				$location.path('/Gui/Users/:uid/Boards/' + bid);
-			};
-
-			$scope.back = function(bid) {
-				$location.path('/Gui/Users/:uid/Boards/' + bid);
-			};
-
-		} ]);
-
-RicoApp.controller('cardCreateCtrl', [
-		'$scope',
-		'$http',
-		'$routeParams',
-		'$rootScope',
-		'BoardService',
-		'$location',
-		function($scope, $http, $routeParams, $rootScope, BoardService,
-				$location) {
-			$scope.bid = $routeParams.bid;
-			$scope.newcard = {
-				event : $routeParams.lid
-			};
-			$scope.events = BoardService.getevents($scope.bid);
-			$scope.status = BoardService.getStatus();
-
-			$scope.savecard = function() {
-				var bid = $scope.bid;
-				BoardService.savecard(bid, $scope.newcard);
-				$scope.newcard = {};
-				$location.path('/Gui/Users/:uid/Boards/' + bid);
-			};
-		} ]);
-
-RicoApp.controller('cardUpdateCtrl', [
-		'$scope',
-		'$routeParams',
-		'$route',
-		'$rootScope',
-		'BoardService',
-		'$location',
-		function($scope, $routeParams, $route, $rootScope, BoardService,
-				$location) {
-			$scope.newcard = BoardService.getcard($routeParams.bid,
-					$routeParams.lid, $routeParams.cid);
-			$scope.bid = $routeParams.bid;
-			$scope.events = BoardService.getevents($routeParams.bid);
-			$scope.status = BoardService.getStatus();
-
-			$scope.savecard = function() {
-				var bid = $scope.bid;
-				BoardService.savecard(bid, $scope.newcard);
-				$scope.newcard = {};
-				$location.path('/Gui/Users/:uid/Boards/' + bid);
-			};
-		} ]);
-
-RicoApp.controller('cardDeleteCtrl', [ '$scope', '$routeParams', '$http',
-		'BoardService', '$location',
-		function($scope, $routeParams, $http, BoardService, $location) {
-			$scope.bid = $routeParams.bid;
-			$scope.lid = $routeParams.lid;
-			$scope.cid = $routeParams.cid;
-
-			$scope.removecard = function(bid, lid, cid) {
-				BoardService.removecard(bid, lid, cid);
 				$location.path('/Gui/Users/:uid/Boards/' + bid);
 			};
 
@@ -426,6 +288,14 @@ RicoApp.service('UserService', function() {
 		userLoggedin = {};
 	}
 });
+
+RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
+  return $resource('http://192.168.178.30:8080/events');
+  // return $resource('Unknown provider: ngResourceProvider');
+  /*, {}, {
+    get: { method: 'GET' , isArray: true }
+  });*/
+}]);
 
 RicoApp.service('BoardService', [ '$rootScope', function($rootScope) {
 	// to create unique board id
