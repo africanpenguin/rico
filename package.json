@@ -9,8 +9,7 @@
     },
     "dependencies": {
         "mongodb": "~2.0",
-        "restify": "~2.8",
-        "underscore": "~1.7"
+        "restify": "~2.8"
     },
     "author": "Adrian Baran, Joe MacMahon, Leonardo Rossi",
     "license": "AGPL",

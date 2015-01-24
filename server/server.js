@@ -1,7 +1,6 @@
 var restify = require('restify');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
-var _ = require('underscore');
 
 var endpoints = require('./endpoints');
 
