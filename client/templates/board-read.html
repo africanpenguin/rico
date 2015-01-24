@@ -1,0 +1,55 @@
+<div class="panel panel-default events">
+	<div class="panel-heading">
+		<div class="menu">
+			<a class="btn btn-default new" href="#Gui/Users/{{user.id}}/Boards" role="button"><span
+				class="glyphicon glyphicon-step-backward"></span></a> <!-- <a
+				class="btn btn-default new" href="BoardView?id={{board.id}}"
+				role="button"><span class="glyphicon glyphicon-refresh"></span></a> -->
+			<a class="btn btn-primary new" href="#Gui/Users/{{user.id}}/Boards/{{board.id}}/events/Create"
+				role="button"><span class="glyphicon glyphicon-plus"></span></a>
+		</div>
+		<h3 class="panel-title">{{board.name}}</h3>
+	</div>
+	<div class="panel-body row">
+		<div class="col-xs-4" ng-repeat="event in board.events">
+			<div class="thumbnail event ">
+
+				<div class="caption">
+					<div class="header">
+						<div class="menu">
+							<a class="btn btn-primary btn-xs new"
+								href="#Gui/Users/{{user.id}}/Boards/{{board.id}}/events/{{event.id}}/cards/Create"
+								role="button"><span class="glyphicon glyphicon-plus"></span></a>
+							<a class="btn btn-default btn-xs modify"
+								href="#Gui/Users/{{user.id}}/Boards/{{board.id}}/events/{{event.id}}/Update" role="button"><span
+								class="glyphicon glyphicon-pencil"></span></a> <a
+								class="btn btn-danger btn-xs delete event" href="#Gui/Users/{{user.id}}/Boards/{{board.id}}/events/{{event.id}}/Delete" role="button"
+								lid="" bid=""><span
+								class="glyphicon glyphicon-remove"></span></a>
+						</div>
+            <h4 class="title"><a ng-href="{{event.url}}">{{event.name}}</a></h4>
+            <small>{{event.subtitle}}</small>
+					</div>
+          <div class="speaker">
+            Speakers:
+            <span ng-repeat="speaker in event.speakers">
+              {{speaker}}
+            </span>
+          </div><!-- /.speakers -->
+          <div class="track">
+            Track: {{event.track}}
+          </div><!-- /.track -->
+          <div class="location">
+            Location: {{event.location}}
+          </div><!-- /.location-->
+          <div class="start_time">
+            Starting time: {{event.start_time}}
+          </div><!-- /.start_time -->
+          <div class="end_time">
+            Ending time: {{event.end_time}}
+          </div><!-- /.end_time -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
