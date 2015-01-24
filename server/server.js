@@ -38,8 +38,9 @@ MongoClient.connect(settings.mongo_url, function(err, db) {
     return next();
   });
 
-
-  server.use(restify.jsonp());
+  server.use(restify.acceptParser(server.acceptable));
+  //server.use(restify.dateParser());
+  server.use(restify.queryParser());
   server.use(restify.bodyParser());
 
   endpoints.process(server, db);
