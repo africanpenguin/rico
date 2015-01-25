@@ -9,7 +9,7 @@
 	<div class="panel-body row">
 		<div class="col-xs-4 tracks-content" ng-repeat="track in tracks track by $index">
       <div class="thumbnail track">
-        {{track}}
+        <a ng-href="#/Gui/Events/ByTrack/{{track}}">{{track}}</a>
       </div><!-- /.track -->
     </div><!-- /.tracks-content -->
   </div><!-- /.panle-body -->

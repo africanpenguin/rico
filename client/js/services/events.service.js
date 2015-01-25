@@ -58,5 +58,17 @@ RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
     return this.tracks
   }
 
+  this.getTrackEvents = function(track){
+    es = this
+    filtered_events = []
+    events = this.getEvents(function(events){
+      events.forEach(function(event){
+        if(track == event['track']){
+          filtered_events.push(event)
+        }
+      })
+    })
+    return filtered_events
+  }
 
 }]);

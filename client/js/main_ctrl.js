@@ -44,6 +44,12 @@ RicoApp.config([
 				controller : 'EventsByTrackCtrl',
 			})
 
+        // View Events By Track - view events of a track
+        .when('/Gui/Events/ByTrack/:track', {
+          templateUrl : 'templates/events-by-track-track.html',
+          controller : 'EventsByTrackTrackCtrl',
+        })
+
       // View Events By Room
 			.when('/Gui/Events/ByRoom', {
 				templateUrl : 'templates/events-by-room.html',
