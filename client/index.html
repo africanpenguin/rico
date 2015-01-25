@@ -1,104 +1,103 @@
 <!--
-Copyright 2015 Adrian Baran, Joe MacMahon, Leonardo Rossi
+    Copyright 2015 Adrian Baran, Joe MacMahon, Leonardo Rossi
 
-This file is part of Rico.
+    This file is part of Rico.
 
-Rico is free software: you can redistribute it and/or modify it under the terms
-of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
+    Rico is free software: you can redistribute it and/or modify it under the
+    terms of the GNU Affero General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option)
+    any later version.
 
-Rico is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
-details.
+    Rico is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+    FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for
+    more details.
 
-You should have received a copy of the GNU Affero General Public License along
-with Rico.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU Affero General Public License
+    along with Rico.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en" ng-app="RicoApp">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<!-- css -->
-<link href="css/style.css" rel="stylesheet">
-<link href="css/form-signin.css" rel="stylesheet">
-<title>Rico</title>
-</head>
-<body>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <!-- css -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/form-signin.css" rel="stylesheet">
+    <title>Rico</title>
+  </head>
+  <body>
 	<div ng-controller="MainCtrl">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Rico</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Tracks</a></li>
-                        <li class="active"><a href="#">Rooms <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Favourites</a></li>
-                        <li><a href="#">All</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Filter...">
-                    </form>
-                </div>
-            </div>
-        </nav>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar" ng-if="navitems">
-                    <ul class="nav nav-sidebar">
-                        <li ng-repeat="navitem in navitems">
-                            <a href="#{{navitem.url}}" ng-class="{active: navitem.active}">{{navitem.name}} <span class="sr-only" ng-if="navitem.active">(current)</span></a>
-                        </li>
-                </div>
-                <div class="main" ng-class="{'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2': navitems, 'col-xs-12': !navitems}">
-                    <div ng-view></div>
-                </div>
-            </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Rico</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Tracks</a></li>
+              <li class="active"><a href="#">Rooms <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Favourites</a></li>
+              <li><a href="#">All</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+              <input type="text" class="form-control" placeholder="Filter...">
+            </form>
+          </div>
         </div>
+      </nav>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-3 col-md-2 sidebar" ng-if="navitems">
+            <ul class="nav nav-sidebar">
+              <li ng-repeat="navitem in navitems">
+                <a href="#{{navitem.url}}" ng-class="{active: navitem.active}">{{navitem.name}} <span class="sr-only" ng-if="navitem.active">(current)</span></a>
+              </li>
+          </div>
+          <div class="main" ng-class="{'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2': navitems, 'col-xs-12': !navitems}">
+            <div ng-view></div>
+          </div>
+        </div>
+      </div>
 
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="lib/jquery/jquery-1.11.0.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-		<!-- AngularJS -->
-		<script src="lib/angularjs/angular.js"></script>
-		<script src="lib/angularjs/angular-route.js"></script>
-		<script src="lib/angularjs/angular-resource.js"></script>
-		<script src="lib/angularjs/ui-bootstrap-tpls-0.12.0.min.js"></script>
-		<!-- my scripts -->
-		<script src="js/main_ctrl.js"></script>
-		<script src="js/services/events.service.js"></script>
-		<script src="js/services/session.service.js"></script>
-		<script src="js/controllers/events-all.controller.js"></script>
-		<script src="js/controllers/events-by-track.controller.js"></script>
-		<script src="js/controllers/events-by-track-track.controller.js"></script>
-		<script src="js/controllers/events-by-location.controller.js"></script>
-		<script src="js/controllers/events-by-location-location.controller.js"></script>
-		<script src="js/controllers/events-my-favorites.controller.js"></script>
-		<!-- my scripts -->
+	  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	  <script src="lib/jquery/jquery-1.11.0.min.js"></script>
+	  <!-- Include all compiled plugins (below), or include individual files as needed -->
+	  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	  <!-- AngularJS -->
+	  <script src="lib/angularjs/angular.js"></script>
+	  <script src="lib/angularjs/angular-route.js"></script>
+	  <script src="lib/angularjs/angular-resource.js"></script>
+	  <script src="lib/angularjs/ui-bootstrap-tpls-0.12.0.min.js"></script>
+	  <!-- my scripts -->
+	  <script src="js/main_ctrl.js"></script>
+	  <script src="js/services/events.service.js"></script>
+	  <script src="js/services/session.service.js"></script>
+	  <script src="js/controllers/events-all.controller.js"></script>
+	  <script src="js/controllers/events-by-track.controller.js"></script>
+	  <script src="js/controllers/events-by-track-track.controller.js"></script>
+	  <script src="js/controllers/events-by-location.controller.js"></script>
+	  <script src="js/controllers/events-by-location-location.controller.js"></script>
+	  <script src="js/controllers/events-my-favorites.controller.js"></script>
+	  <!-- my scripts -->
 	</div>
-</body>
+  </body>
 </html>
-
