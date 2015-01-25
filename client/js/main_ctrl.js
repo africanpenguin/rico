@@ -26,26 +26,28 @@ RicoApp.config([
 		function($routeProvider, $locationProvider, $rootScopeProvider) {
 			$routeProvider
 
-			.when('/Gui/Boards', {
-				templateUrl : 'templates/board-read.html',
-				controller : 'BoardReadCtrl',
+			.when('/Gui/Events/All', {
+				templateUrl : 'templates/events-all.html',
+				controller : 'EventsAllCtrl',
 			})
 
-			.when('/Gui/Boards/events/:lid', {
+/*			.when('/Gui/Boards/events/:lid', {
 				templateUrl : 'templates/event-read.html',
 				controller : 'eventReadCtrl',
-			}).when('/Gui/Boards/:bid/events/:lid/Delete', {
+			}).
+
+      when('/Gui/Boards/:bid/events/:lid/Delete', {
 				templateUrl : 'templates/event-delete.html',
 				controller : 'eventDeleteCtrl'
 			})
-
+*/
       .otherwise({
-        redirectTo : '/Gui/Boards'
+        redirectTo : '/Gui/Events/All'
 			});
 		}
 ]);
 
-RicoApp.controller('BoardsCtrl', [
+RicoApp.controller('MainCtrl', [
 		'$scope',
 		'$http',
 		'$location',
@@ -59,7 +61,7 @@ RicoApp.controller('BoardsCtrl', [
 		}
 ]);
 
-RicoApp.controller('BoardReadCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
+RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
 		function($scope, $routeParams, $route, $rootScope, EventsRestAPI, $modal) {
 			$scope.bid = $routeParams.bid;
 			// $scope.board = BoardService.get($scope.bid);
