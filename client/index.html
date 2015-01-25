@@ -1,24 +1,22 @@
 <!--
-/**
- * Copyright (C) 2015 africanpenguin <https://github.com/africanpenguin>
- *
- * This source code is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This source code is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this source code; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
- */
+Copyright 2015 Adrian Baran, Joe MacMahon, Leonardo Rossi
+
+This file is part of Rico.
+
+Rico is free software: you can redistribute it and/or modify it under the terms
+of the GNU Affero General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+Rico is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+details.
+
+You should have received a copy of the GNU Affero General Public License along
+with Rico.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en" ng-app="RicoApp">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,24 +35,47 @@
 <!-- css -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/form-signin.css" rel="stylesheet">
-<title></title>
+<title>Rico</title>
 </head>
 <body>
 	<div ng-controller="MainCtrl">
-		<div class="container">
-			<div class="row header">
-				<div class="navbar-header col-xs-12">
-					<div class="menu-user">
-					</div>
-					<div class="">
-						<a class="navbar-brand" href="#/Gui/Main">Rico</a>
-					</div>
-				</div>
-			</div>
-			<div class="body">
-				<div ng-view></div>
-			</div>
-		</div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Rico</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Tracks</a></li>
+                        <li class="active"><a href="#">Rooms <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Favourites</a></li>
+                        <li><a href="#">All</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Filter...">
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar" ng-if="navitems">
+                    <ul class="nav nav-sidebar">
+                        <li ng-repeat="navitem in navitems">
+                            <a href="#{{navitem.url}}" ng-class="{active: navitem.active}">{{navitem.name}} <span class="sr-only" ng-if="navitem.active">(current)</span></a>
+                        </li>
+                </div>
+                <div class="main" ng-class="{'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2': navitems, 'col-xs-12': !navitems}">
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
 
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
