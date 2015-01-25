@@ -17,10 +17,11 @@ You should have received a copy of the GNU Affero General Public License along
 with Rico.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Controller for Events By Room View
+// Controller for Events By Location View
 
-RicoApp.controller('EventsByRoomCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
-		function($scope, $routeParams, $route, $rootScope, EventsRestAPI, $modal) {
-
+RicoApp.controller('EventsByLocationCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
+		function($scope, $routeParams, $route, $rootScope, EventsService, $modal) {
+      console.log('yep')
+      $scope.locations = EventsService.getLocations()
     }
 ]);

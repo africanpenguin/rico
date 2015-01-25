@@ -50,11 +50,17 @@ RicoApp.config([
           controller : 'EventsByTrackTrackCtrl',
         })
 
-      // View Events By Room
-			.when('/Gui/Events/ByRoom', {
-				templateUrl : 'templates/events-by-room.html',
-				controller : 'EventsByRoomCtrl',
+      // View Events By Location
+			.when('/Gui/Events/ByLocation', {
+				templateUrl : 'templates/events-by-location.html',
+				controller : 'EventsByLocationCtrl',
 			})
+
+        // View Events By Location - view events of a location
+        .when('/Gui/Events/ByLocation/:location', {
+          templateUrl : 'templates/events-by-location-location.html',
+          controller : 'EventsByLocationLocationCtrl',
+        })
 
       // View My Favorites Events
 			.when('/Gui/Events/MyFavorites', {

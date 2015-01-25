@@ -26,17 +26,12 @@ RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
 RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
   this.events = null
   this.tracks = null
+  this.locations = null
 
   // singleton
   this.getEvents = function(callback){
     if(this.events == null){
-      // if(!callback){
-        this.events = EventsRestAPI.query()
-      // }else{
-        // this.events = EventsRestAPI.query(function(){
-          // callback(this.events)
-        // })
-      // }
+      this.events = EventsRestAPI.query()
     }
     return this.events
   }
@@ -59,13 +54,43 @@ RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
     return this.tracks
   }
 
+  // singleton
+  this.getLocations = function(){
+    if(this.locations == null){
+      this.locations = []
+      es = this
+      events = this.getEvents()
+      events.$promise.then(function(data){
+        data.forEach(function(event){
+          var location = event['location']
+          if($.inArray(location, es.locations) < 0){
+            es.locations.push(location)
+          }
+        })
+      })
+    }
+    return this.locations
+  }
+
   this.getTrackEvents = function(track){
-    es = this
     filtered_events = []
     events = this.getEvents()
     events.$promise.then(function(data){
       data.forEach(function(event){
         if(track == event['track']){
+          filtered_events.push(event)
+        }
+      })
+    })
+    return filtered_events
+  }
+
+  this.getLocationEvents = function(track){
+    filtered_events = []
+    events = this.getEvents()
+    events.$promise.then(function(data){
+      data.forEach(function(event){
+        if(track == event['location']){
           filtered_events.push(event)
         }
       })

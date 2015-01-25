@@ -1,13 +1,13 @@
 <div class="panel panel-default events">
 	<div class="panel-heading">
 		<div class="menu">
-			<a class="btn btn-default" href="#/Gui/Events/ByTrack" role="button"><span
+			<a class="btn btn-default" href="#/Gui/Events/ByLocation" role="button"><span
           class="glyphicon glyphicon-step-backward"></span></a>
 		</div>
-		<h3 class="panel-title">View Events By events - event list</h3>
+		<h3 class="panel-title">View Events By Location - Event List</h3>
 	</div>
 	<div class="panel-body row">
-		<div class="col-xs-4 events-content" ng-repeat="event in trackEvents track by $index">
+		<div class="col-xs-4 events-content" ng-repeat="event in locationEvents track by $index">
       <div class="thumbnail event">
         {{event.title}}
       </div><!-- /.event -->
