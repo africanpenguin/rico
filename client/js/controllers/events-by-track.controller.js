@@ -19,7 +19,8 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 
 // Controller for Events By Track View
 
-RicoApp.controller('EventsByTrackCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
-		function($scope, $routeParams, $route, $rootScope, EventsRestAPI, $modal) {
-
+RicoApp.controller('EventsByTrackCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
+		function($scope, $routeParams, $route, $rootScope, EventsService, $modal) {
+      $scope.tracks = EventsService.getTracks()
+    }
 ]);

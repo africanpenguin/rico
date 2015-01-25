@@ -19,34 +19,32 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 
 // Controller for All Events View
 
-RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
-		function($scope, $routeParams, $route, $rootScope, EventsRestAPI, $modal) {
-			$scope.bid = $routeParams.bid;
+RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
+		function($scope, $routeParams, $route, $rootScope, EventsService, $modal) {
+			// $scope.bid = $routeParams.bid;
 			// $scope.board = BoardService.get($scope.bid);
-      EventsRestAPI.query(function(data){
-        events = data
+      // EventsRestAPI.query(function(data){
+      events = EventsService.getEvents()
 
-        var myDays= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+      var myDays= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
-        events.forEach(function(event) {
-          var s_date = new Date(event['start_time'])
-          var sd = myDays[s_date.getDay()]
-          var sh = s_date.getHours()
-          var sm = s_date.getMinutes()
+      events.forEach(function(event) {
+        var s_date = new Date(event['start_time'])
+        var sd = myDays[s_date.getDay()]
+        var sh = s_date.getHours()
+        var sm = s_date.getMinutes()
 
-          event['start_time'] = sd + " " + sh + ":" + sm
+        event['start_time'] = sd + " " + sh + ":" + sm
 
-          var e_date = new Date(event['end_time'])
-          var ed = myDays[e_date.getDay()]
-          var eh = e_date.getHours()
-          var em = e_date.getMinutes()
+        var e_date = new Date(event['end_time'])
+        var ed = myDays[e_date.getDay()]
+        var eh = e_date.getHours()
+        var em = e_date.getMinutes()
 
-          event['end_time'] = ed + " " + eh + ":" + em
-        });
+        event['end_time'] = ed + " " + eh + ":" + em
+      });
 
-        $scope.events = events
-
-      })
+      $scope.events = events
 
       $scope.open = function(event){
         $modal.open({

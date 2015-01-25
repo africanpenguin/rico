@@ -22,4 +22,5 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 RicoApp.controller('EventsByRoomCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsRestAPI', '$modal',
 		function($scope, $routeParams, $route, $rootScope, EventsRestAPI, $modal) {
 
+    }
 ]);

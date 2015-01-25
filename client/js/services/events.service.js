@@ -23,3 +23,40 @@ RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
   return $resource('http://192.168.178.30:8080/events');
 }]);
 
+RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
+  this.events = null
+  this.tracks = null
+
+  // singleton
+  this.getEvents = function(callback){
+    if(this.events == null){
+      if(!callback){
+        this.events = EventsRestAPI.query()
+      }else{
+        this.events = EventsRestAPI.query(function(){
+          callback(this.events)
+        })
+      }
+    }
+    return this.events
+  }
+
+  // singleton
+  this.getTracks = function(){
+    if(this.tracks == null){
+      this.tracks = []
+      es = this
+      events = this.getEvents(function(events){
+        events.forEach(function(event){
+          var track = event['track']
+          if($.inArray(track, es.tracks) < 0){
+            es.tracks.push(track)
+          }
+        })
+      })
+    }
+    return this.tracks
+  }
+
+
+}]);
