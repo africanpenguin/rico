@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flipcard</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/components-bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="index.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Jura:500' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- FLIP CARD -->
+        <div class="col-md-4">
+          <div class="panel flip-card">
+            <div class="panel-heading">
+              <h1 class="panel-title">Privacy features for Firefox for Android</h1><!--EVENT_TITLE-->
+              <span><small>Supporting privacy on the mobile web with built-in features and add-ons</small></span><!--EVENT_SUBTITLE-->
+              <span class="badges pull-right">
+                <a class="badge track">Mozilla</a><!-- EVENT_TRACK -->
+                <a class="badge room">UD2.218A</a><!-- EVENT_ROOM -->
+              </span>
+              <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> <!-- here need to provide unique ID for each event -->
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Summary <!-- change data-parent and href to unique of the event -->
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                      <div class="pull-left">
+                        <dl>
+                          <dt>Speakers:</dt>
+                          <dd>
+                            <ul class="list-inline"> <!-- EVENT_SPEAKERS -->
+                              <li>Francisco Fernández Castaño</li>
+                            </ul>
+                          </dd> 
+                          <dt>Start:</dt>
+                          <dd>9:25</dd> <!-- EVENT_START -->
+                          <dt>Duration:</dt>
+                          <dd>50min</dd> <!-- EVENT_DURATION -->
+                        </dl>
+                      </div>
+                      <div class="manage pull-right">
+                        <a class="btn btn-success"><i class="fa fa-fw fa-star"></i>Favourite</a><!-- INCLUDE FONT AWESOME -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Description
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body"> <!-- EVENT_DESCRIPTION -->
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Links
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                      <ul>
+                        <li>Link 1</li>
+                        <li>Link 2</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <a href="https://fosdem.org/2015/schedule/event/understanding_cpython_34_objects/">See the event on FOSDEM</a> <!-- EVENT_URL -->
+            </div>
+          </div>
+        </div>
+        <!-- FLIP CARD -->
+
+
+      </div>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/components-bootstrap/js/bootstrap.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

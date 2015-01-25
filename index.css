@@ -1,0 +1,98 @@
+body {
+  background-color: lightgrey;
+  padding-top: 20px;
+}
+
+/* CUSTOMIZE BOOTSTRAP */
+.panel.flip-card {
+  border-color: #9d0fb1;
+}
+
+.panel.flip-card > .panel-body {
+  padding: 0px;
+}
+
+.panel.flip-card > .panel-heading {
+  background-color: #9d0fb1;
+  border-color: #9d0fb1;
+  border-bottom-color: black;
+  color: #FFF;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.panel.panel-default > .panel-heading {
+  background-color: #9D0FB1;
+  border-color: #9D0FB1;
+  color: #FFF;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.panel.flip-card > .panel-footer {
+  text-align: center;
+  background-color: #9d0fb1;
+  border-color: #9d0fb1;
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.panel.flip-card > .panel-footer > a{
+  color: #000;
+}
+.panel.flip-card > .panel-footer > a:hover{
+  text-decoration: none;
+}
+
+.panel.flip-card > .panel-heading > span > small{
+  width: 250px;
+  float: left;
+  color: lightgrey;
+}
+
+.badge {
+  margin-right: 3px;
+  border-radius: 1px;
+}
+
+.badge.track {
+  background-color: orange;
+}
+
+.badges {
+  margin-top: 10px;
+}
+
+.panel {
+  font-family: 'Jura', sans-serif;
+}
+
+.panel-body > dl {
+  margin: 0px;
+}
+
+.manage {
+  margin-top: 20px;
+}
+
+.manage > a {
+  width: 100% ;
+}
+
+.panel-group {
+  margin: 0px;
+}
+.panel-group > .panel {
+  border: none;
+}
+
+.panel-group .panel + .panel {
+  margin: 0px;
+}
+
+.panel-group > .panel > .panel-heading {
+  border-bottom: 1px solid black;
+}
+
+.panel-heading {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
