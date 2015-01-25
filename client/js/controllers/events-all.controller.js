@@ -34,14 +34,14 @@ RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$root
         var sh = s_date.getHours()
         var sm = s_date.getMinutes()
 
-        event['start_time'] = sd + " " + sh + ":" + sm
+        event['start_time_formatted'] = sd + " " + sh + ":" + sm
 
         var e_date = new Date(event['end_time'])
         var ed = myDays[e_date.getDay()]
         var eh = e_date.getHours()
         var em = e_date.getMinutes()
 
-        event['end_time'] = ed + " " + eh + ":" + em
+        event['end_time_formatted'] = ed + " " + eh + ":" + em
       });
 
       $scope.events = events
