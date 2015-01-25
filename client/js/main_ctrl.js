@@ -26,23 +26,38 @@ RicoApp.config([
 		function($routeProvider, $locationProvider, $rootScopeProvider) {
 			$routeProvider
 
+      // Main Page
+			.when('/Gui/Main', {
+				templateUrl : 'templates/main-page.html',
+				controller : 'MainCtrl',
+			})
+
+      // View All Events
 			.when('/Gui/Events/All', {
 				templateUrl : 'templates/events-all.html',
 				controller : 'EventsAllCtrl',
 			})
 
-/*			.when('/Gui/Boards/events/:lid', {
-				templateUrl : 'templates/event-read.html',
-				controller : 'eventReadCtrl',
-			}).
-
-      when('/Gui/Boards/:bid/events/:lid/Delete', {
-				templateUrl : 'templates/event-delete.html',
-				controller : 'eventDeleteCtrl'
+      // View Events By Track
+			.when('/Gui/Events/ByTrack', {
+				templateUrl : 'templates/events-by-track.html',
+				controller : 'EventsByTrackCtrl',
 			})
-*/
+
+      // View Events By Room
+			.when('/Gui/Events/ByRoom', {
+				templateUrl : 'templates/events-by-room.html',
+				controller : 'EventsByRoomCtrl',
+			})
+
+      // View My Favorites Events
+			.when('/Gui/Events/MyFavorites', {
+				templateUrl : 'templates/events-my-favorites.html',
+				controller : 'EventsMyFavoritesCtrl',
+			})
+
       .otherwise({
-        redirectTo : '/Gui/Events/All'
+        redirectTo : '/Gui/Main'
 			});
 		}
 ]);
@@ -54,10 +69,10 @@ RicoApp.controller('MainCtrl', [
 		'$rootScope',
 		'SessionsRestAPI',
 		function($scope, $http, $location, $rootScope, SessionsRestAPI) {
-			$scope.$on('boards:updated', function(card, data) {
+/*			$scope.$on('boards:updated', function(card, data) {
 				$scope.events = data;
 			});
-
+*/
 		}
 ]);
 

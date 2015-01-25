@@ -1,4 +1,3 @@
-
 /*
 Copyright 2015 Adrian Baran, Joe MacMahon, Leonardo Rossi
 
