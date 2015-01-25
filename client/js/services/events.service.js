@@ -30,13 +30,13 @@ RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
   // singleton
   this.getEvents = function(callback){
     if(this.events == null){
-      if(!callback){
+      // if(!callback){
         this.events = EventsRestAPI.query()
-      }else{
-        this.events = EventsRestAPI.query(function(){
-          callback(this.events)
-        })
-      }
+      // }else{
+        // this.events = EventsRestAPI.query(function(){
+          // callback(this.events)
+        // })
+      // }
     }
     return this.events
   }
@@ -46,8 +46,9 @@ RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
     if(this.tracks == null){
       this.tracks = []
       es = this
-      events = this.getEvents(function(events){
-        events.forEach(function(event){
+      events = this.getEvents()
+      events.$promise.then(function(data){
+        data.forEach(function(event){
           var track = event['track']
           if($.inArray(track, es.tracks) < 0){
             es.tracks.push(track)
@@ -61,8 +62,9 @@ RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
   this.getTrackEvents = function(track){
     es = this
     filtered_events = []
-    events = this.getEvents(function(events){
-      events.forEach(function(event){
+    events = this.getEvents()
+    events.$promise.then(function(data){
+      data.forEach(function(event){
         if(track == event['track']){
           filtered_events.push(event)
         }
