@@ -1,5 +1,5 @@
 # Run container for NodeJS
-FROM "node:0.10.36"
+FROM node:0.10.36
 
 # Expose port.
 EXPOSE 8080

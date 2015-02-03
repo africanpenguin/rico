@@ -6,7 +6,11 @@ How to
 
 * Run all containers:
 
-`./fig up`
+`fig up -d`
+
+* To see what environment variables are available to the web service:
+
+`fig run web env`
 
 * Install Fig (docker-compose):
 
