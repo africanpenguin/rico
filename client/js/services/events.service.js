@@ -20,7 +20,7 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 // Event Service: to call rest api
 
 RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
-  return $resource('http://192.168.178.30:8080/events');
+  return $resource('demo/events.json')//('http://nodejs:8080/events');
 }]);
 
 RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
