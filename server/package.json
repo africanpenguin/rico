@@ -1,8 +1,11 @@
 {
-  "name": "rico",
+  "name": "rico-rest",
   "version": "1.0.0",
   "description": "FOSDEM Scheduling Helper",
   "main": "server.js",
+  "scripts":{
+    "start": "node app/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/africanpenguin/rico"

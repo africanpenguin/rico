@@ -13,7 +13,7 @@ nodejs:
   ports:
     - "8001:8080"
   volumes:
-    - server/:/var/www/:rw
+    - server/app/:/var/www/app/:rw
   links:
     - mongodb:mongodb
 mongodb:

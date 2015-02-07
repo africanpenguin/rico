@@ -53,6 +53,10 @@ RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$root
           size: 'lg',
         })
       };
+
+      $scope.toggleSelected = function(event){
+        event.selected = !event.selected;
+      };
 		}
 ]);
 

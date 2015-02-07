@@ -4,9 +4,16 @@ Rico
 How to
 ------
 
+* Test the application:
+
+  - Run all containers
+  - Start browser: `http://0.0.0.0:8000`
+
 * Run all containers:
 
-`fig up -d`
+```bash
+fig up -d
+```
 
 * To see what environment variables are available to the web service:
 

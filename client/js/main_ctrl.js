@@ -38,6 +38,7 @@ RicoApp.config([
 				controller : 'EventsAllCtrl',
 			})
 
+      /** DEPRECATED **
       // View Events By Track
 			.when('/Gui/Events/ByTrack', {
 				templateUrl : 'templates/events-by-track.html',
@@ -68,8 +69,10 @@ RicoApp.config([
 				controller : 'EventsMyFavoritesCtrl',
 			})
 
+      */
+
       .otherwise({
-        redirectTo : '/Gui/Main'
+        redirectTo : '/Gui/Events/All'
 			});
 		}
 ]);

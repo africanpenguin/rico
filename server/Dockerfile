@@ -6,14 +6,14 @@ EXPOSE 8080
 
 # RUN mkdir /var/www/app -p
 
-COPY . /var/www/
+COPY package.json /var/www/
 WORKDIR /var/www
 
 # Install dependencies
-RUN npm install
+RUN npm install && mkdir /var/www/app
 
 # Define mountable directory for server.
-# VOLUME ["/var/www"]
+VOLUME ["/var/www/app"]
 
 # Run application
 CMD [ "npm", "start" ]
