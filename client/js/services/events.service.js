@@ -23,15 +23,27 @@ RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
   return $resource('/demo/events.json');//('http://nodejs:8080/events');
 }]);
 
-RicoApp.service('EventsService', ['EventsRestAPI', function(EventsRestAPI){
+RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(EventsRestAPI, SessionService){
   this.events = null
   this.tracks = null
   this.locations = null
+  this.sid = 1
 
   // singleton
   this.getEvents = function(callback){
     if(this.events == null){
-      this.events = EventsRestAPI.query()
+      this.events = EventsRestAPI.query(function(data){
+        var session = SessionService.getSession()
+        session.$promise.then(function(session){
+          data.forEach(function(event){
+            if($.inArray(event.id, session.favorites) < 0){
+              event.selected = false;
+            }else{
+              event.selected = true;
+            }
+          });
+        });
+      })
     }
     return this.events
   }

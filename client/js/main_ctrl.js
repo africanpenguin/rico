@@ -82,8 +82,8 @@ RicoApp.controller('MainCtrl', [
 		'$http',
 		'$location',
 		'$rootScope',
-		'SessionsRestAPI',
-		function($scope, $http, $location, $rootScope, SessionsRestAPI) {
+		'SessionRestAPI',
+		function($scope, $http, $location, $rootScope, SessionRestAPI) {
 /*			$scope.$on('boards:updated', function(card, data) {
 				$scope.events = data;
 			});
