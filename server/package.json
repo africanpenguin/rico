@@ -2,7 +2,7 @@
   "name": "rico",
   "version": "1.0.0",
   "description": "FOSDEM Scheduling Helper",
-  "main": "server/server.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/africanpenguin/rico"

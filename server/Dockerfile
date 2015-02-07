@@ -4,13 +4,16 @@ FROM node:0.10.36
 # Expose port.
 EXPOSE 8080
 
-# Define mountable directory for server.
-VOLUME ["/var/www"]
+# RUN mkdir /var/www/app -p
 
+COPY . /var/www/
 WORKDIR /var/www
 
 # Install dependencies
-ONBUILD RUN npm install
+RUN npm install
+
+# Define mountable directory for server.
+# VOLUME ["/var/www"]
 
 # Run application
 CMD [ "npm", "start" ]

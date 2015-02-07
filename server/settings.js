@@ -17,4 +17,4 @@ You should have received a copy of the GNU Affero General Public License along
 with Rico.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-module.exports.mongo_url = 'mongodb://0.0.0.0:27017/rico'
+module.exports.mongo_url = 'mongodb://mongodb:27017/rico'

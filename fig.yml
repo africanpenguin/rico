@@ -1,24 +1,27 @@
 web:
+  hostname: web
   build: client/
   ports:
     - "8000:8000"
   volumes:
     - client/:/var/www/client/:rw
   links:
-    - nodejs
+    - nodejs:nodejs
 nodejs:
+  hostname: nodejs
   build: server/
   ports:
     - "8001:8080"
   volumes:
-    - server/:/var/www:rw
+    - server/:/var/www/:rw
   links:
-    - mongodb
+    - mongodb:mongodb
 mongodb:
+  hostname: mongodb
   build: db/
   ports:
     - "27017:27017"
     - "28017:28017"
   volumes:
-    - db/data/:/data/:rw
+    - db:/data/:rw
 
