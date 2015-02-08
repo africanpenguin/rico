@@ -34,6 +34,23 @@ RicoApp.filter('filterBySelectedTracks', function(){
   };
 });
 
+RicoApp.filter('filterBySelectedLocations', function(){
+  return function(events, locations){
+    if(locations.length == 0){
+      // if nothing selected, return all events
+      return events;
+    }
+    // start filtering..
+    var filtered = [];
+    events.forEach(function(event){
+      if($.inArray(event.location, locations) >= 0){
+        filtered.push(event)
+      }
+    })
+    return filtered;
+  };
+});
+
 // Controller for All Events View
 
 RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
@@ -54,9 +71,13 @@ RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$root
       };
 
       $scope.tracks = EventsService.getTracks()
+      $scope.locations = EventsService.getLocations()
 
+      // init filters
       $scope.filters = {}
+      $scope.filters.query = ""
       $scope.filters.byTracks = [];
+      $scope.filters.byLocations = [];
 		}
 ]);
 

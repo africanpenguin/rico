@@ -38,39 +38,6 @@ RicoApp.config([
 				controller : 'EventsAllCtrl',
 			})
 
-      /** DEPRECATED **
-      // View Events By Track
-			.when('/Gui/Events/ByTrack', {
-				templateUrl : 'templates/events-by-track.html',
-				controller : 'EventsByTrackCtrl',
-			})
-
-        // View Events By Track - view events of a track
-        .when('/Gui/Events/ByTrack/:track', {
-          templateUrl : 'templates/events-by-track-track.html',
-          controller : 'EventsByTrackTrackCtrl',
-        })
-
-      // View Events By Location
-			.when('/Gui/Events/ByLocation', {
-				templateUrl : 'templates/events-by-location.html',
-				controller : 'EventsByLocationCtrl',
-			})
-
-        // View Events By Location - view events of a location
-        .when('/Gui/Events/ByLocation/:location', {
-          templateUrl : 'templates/events-by-location-location.html',
-          controller : 'EventsByLocationLocationCtrl',
-        })
-
-      // View My Favorites Events
-			.when('/Gui/Events/MyFavorites', {
-				templateUrl : 'templates/events-my-favorites.html',
-				controller : 'EventsMyFavoritesCtrl',
-			})
-
-      */
-
       .otherwise({
         redirectTo : '/Gui/Events/All'
 			});
@@ -84,10 +51,6 @@ RicoApp.controller('MainCtrl', [
 		'$rootScope',
 		'SessionRestAPI',
 		function($scope, $http, $location, $rootScope, SessionRestAPI) {
-/*			$scope.$on('boards:updated', function(card, data) {
-				$scope.events = data;
-			});
-*/
 		}
 ]);
 
@@ -101,12 +64,8 @@ RicoApp.controller('eventChooseCtrl', [
 		'$location',
 		function($scope, $routeParams, $route, $routeParams, SessionsRestAPI,
 				$location) {
-			// $scope.newevent = BoardService.getevent($routeParams.bid,
-					// $routeParams.lid);
 
 			$scope.saveevent = function() {
-				// var bid = $scope.newevent.board;
-				// BoardService.saveevent($scope.newevent);
 				$scope.newevent = {};
 				$location.path('/Gui/Boards/' + bid);
 			};
@@ -120,8 +79,6 @@ RicoApp.controller('eventDeleteCtrl', [ '$scope', '$routeParams', '$http',
 			$scope.lid = $routeParams.lid;
 
 			$scope.removeevent = function(bid, lid) {
-				// console.log(bid + ' ' + lid);
-				// BoardService.removeevent(bid, lid);
 				$location.path('/Gui/Boards/' + bid);
 			};
 

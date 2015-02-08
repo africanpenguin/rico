@@ -94,6 +94,7 @@ RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(Ev
             es.locations.push(location)
           }
         })
+        // console.log(es.locations)
       })
     }
     return this.locations
