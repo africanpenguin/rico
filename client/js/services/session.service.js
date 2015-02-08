@@ -30,7 +30,7 @@ RicoApp.service('SessionService', ['SessionRestAPI', function(SessionRestAPI){
   this.getSession = function(sid){
     if(this.session == null){
       // this.session = []
-      es = this
+      // es = this
       // TODO check if not exists, create one!
       this.session = SessionRestAPI.get({ sid: sid })
     }

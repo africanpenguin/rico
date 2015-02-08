@@ -27,6 +27,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="lib/angularjs/angular-ui-select/select.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,6 +36,21 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <!-- css -->
+
+<!--
+  IE8 support, see AngularJS Internet Explorer Compatibility http://docs.angularjs.org/guide/ie
+  For Firefox 3.6, you will also need to include jQuery and ECMAScript 5 shim
+-->
+<!--[if lt IE 9]>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.js"></script>
+  <script>
+      document.createElement('ui-select');
+      document.createElement('ui-select-match');
+      document.createElement('ui-select-choices');
+  </script>
+  <![endif]-->
+
 <link href="css/style.css" rel="stylesheet">
 <link href="css/form-signin.css" rel="stylesheet">
 <title></title>
@@ -65,6 +81,8 @@
 		<script src="lib/angularjs/angular.js"></script>
 		<script src="lib/angularjs/angular-route.js"></script>
 		<script src="lib/angularjs/angular-resource.js"></script>
+		<script src="lib/angularjs/angular-sanitize.js"></script>
+		<script src="lib/angularjs/angular-ui-select/select.js"></script>
 		<script src="lib/angularjs/ui-bootstrap-tpls-0.12.0.min.js"></script>
 		<!-- my scripts -->
 		<script src="js/main_ctrl.js"></script>

@@ -29,18 +29,33 @@ RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(Ev
   this.locations = null
   this.sid = 1
 
+  // date formatting
+  this.formatDate = function(date_string){
+    var myDays= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+
+      var s_date = new Date(date_string)
+      var sd = myDays[s_date.getDay()]
+      var sh = s_date.getHours()
+      var sm = s_date.getMinutes()
+
+      return sd + " " + sh + ":" + sm
+  };
+
   // singleton
+  es = this
   this.getEvents = function(callback){
     if(this.events == null){
       this.events = EventsRestAPI.query(function(data){
+        // get session
         var session = SessionService.getSession()
         session.$promise.then(function(session){
           data.forEach(function(event){
-            if($.inArray(event.id, session.favorites) < 0){
-              event.selected = false;
-            }else{
-              event.selected = true;
-            }
+            // set "selected" field (by session data)
+            event.selected = $.inArray(event.id, session.favorites) >= 0
+            // format start_time
+            event.start_time_formatted = es.formatDate(event.start_time)
+            // format end_time
+            event.end_time_formatted = es.formatDate(event.end_time)
           });
         });
       })

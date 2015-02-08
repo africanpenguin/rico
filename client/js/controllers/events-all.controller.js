@@ -17,34 +17,28 @@ You should have received a copy of the GNU Affero General Public License along
 with Rico.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+RicoApp.filter('filterBySelectedTracks', function(){
+  return function(events, tracks){
+    if(tracks.length == 0){
+      // if nothing selected, return all events
+      return events;
+    }
+    // start filtering..
+    var filtered = [];
+    events.forEach(function(event){
+      if($.inArray(event.track, tracks) >= 0){
+        filtered.push(event)
+      }
+    })
+    return filtered;
+  };
+});
+
 // Controller for All Events View
 
 RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
 		function($scope, $routeParams, $route, $rootScope, EventsService, $modal) {
-			// $scope.bid = $routeParams.bid;
-			// $scope.board = BoardService.get($scope.bid);
-      // EventsRestAPI.query(function(data){
-      events = EventsService.getEvents()
-
-      var myDays= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-
-      events.forEach(function(event) {
-        var s_date = new Date(event['start_time'])
-        var sd = myDays[s_date.getDay()]
-        var sh = s_date.getHours()
-        var sm = s_date.getMinutes()
-
-        event['start_time_formatted'] = sd + " " + sh + ":" + sm
-
-        var e_date = new Date(event['end_time'])
-        var ed = myDays[e_date.getDay()]
-        var eh = e_date.getHours()
-        var em = e_date.getMinutes()
-
-        event['end_time_formatted'] = ed + " " + eh + ":" + em
-      });
-
-      $scope.events = events
+      $scope.events = EventsService.getEvents()
 
       $scope.open = function(event){
         $modal.open({
@@ -56,7 +50,13 @@ RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$root
 
       $scope.toggleSelected = function(event){
         event.selected = !event.selected;
+        // TODO save changes in session
       };
+
+      $scope.tracks = EventsService.getTracks()
+
+      $scope.filters = {}
+      $scope.filters.byTracks = [];
 		}
 ]);
 

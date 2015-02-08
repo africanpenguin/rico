@@ -17,7 +17,7 @@ You should have received a copy of the GNU Affero General Public License along
 with Rico.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var RicoApp = angular.module("RicoApp", [ 'ngRoute', 'ngResource', 'ui.bootstrap' ]);
+var RicoApp = angular.module("RicoApp", [ 'ngRoute', 'ngResource', 'ui.bootstrap', 'ui.select', 'ngSanitize' ]);
 
 RicoApp.config([
 		'$routeProvider',
