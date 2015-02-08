@@ -18,7 +18,7 @@
       <div class="filter-by-track">
         <ui-select multiple ng-model="filters.byTracks" theme="bootstrap">
           <ui-select-match placeholder="Select tracks...">{{$item}}</ui-select-match>
-          <ui-select-choices repeat="track in tracks | filter: $select.search">
+          <ui-select-choices repeat="track in model.tracks | filter: $select.search">
             <div ng-bind-html="track | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
@@ -26,7 +26,7 @@
       <div class="filter-by-location">
         <ui-select multiple ng-model="filters.byLocations" theme="bootstrap">
           <ui-select-match placeholder="Select locations...">{{$item}}</ui-select-match>
-          <ui-select-choices repeat="location in locations | filter: $select.search">
+          <ui-select-choices repeat="location in model.locations | filter: $select.search">
             <div ng-bind-html="location | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
@@ -34,7 +34,7 @@
     </div><!-- /.filters -->
 	</div>
 	<div class="panel-body row">
-    <div class="col-xs-4" ng-repeat="event in events | filter:filters.query | filter:event.selected | filterBySelectedTracks:filters.byTracks | filterBySelectedLocations:filters.byLocations">
+    <div class="col-xs-4" ng-repeat="event in model.events | filter:filters.query | filter:event.selected | filterBySelectedTracks:filters.byTracks | filterBySelectedLocations:filters.byLocations">
 			<div class="thumbnail event ">
 
 				<div class="caption">

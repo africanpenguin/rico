@@ -55,7 +55,6 @@ RicoApp.filter('filterBySelectedLocations', function(){
 
 RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
 		function($scope, $routeParams, $route, $rootScope, EventsService, $modal) {
-      $scope.events = EventsService.getEvents()
 
       $scope.open = function(event){
         $modal.open({
@@ -70,8 +69,11 @@ RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$root
         // TODO save changes in session
       };
 
-      $scope.tracks = EventsService.getTracks()
-      $scope.locations = EventsService.getLocations()
+      // init model
+      $scope.model = {}
+      $scope.model.events = EventsService.getEvents()
+      $scope.model.tracks = EventsService.getTracks()
+      $scope.model.locations = EventsService.getLocations()
 
       // init filters
       $scope.filters = {}
