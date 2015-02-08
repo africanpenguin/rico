@@ -39,7 +39,7 @@ RicoApp.config([
 			})
 
       .otherwise({
-        redirectTo : '/Gui/Events/All'
+        redirectTo : '/Gui/Main'
 			});
 		}
 ]);
