@@ -5,32 +5,38 @@
           class="glyphicon glyphicon-step-backward"></span></a>
 		</div>
     <!-- <h3 class="panel-title">View All Events</h3> -->
-    <div class="filters">
-      <div class="input-group filter-by-all">
-        <span class="input-group-addon" id="filters-all-fields">Filter</span>
-        <input type="text" class="form-control" placeholder="Filter" aria-describedby="filters-all-fields" ng-model="filters.query">
-      </div><!-- /.filter-by-all -->
-      <div class="filter-by-selected">
-        <label class="checkbox">
-          <input type="checkbox" data-ng-model="event.selected" data-ng-true-value="true" data-ng-false-value="false || undefined">My Freferites
-        </label>
-      </div><!-- /.filter-by-selected -->
-      <div class="filter-by-track">
-        <ui-select multiple ng-model="filters.byTracks" theme="bootstrap">
-          <ui-select-match placeholder="Select tracks...">{{$item}}</ui-select-match>
-          <ui-select-choices repeat="track in model.tracks | filter: $select.search">
-            <div ng-bind-html="track | highlight: $select.search"></div>
-          </ui-select-choices>
-        </ui-select>
-      </div><!-- /.filter-by-track -->
-      <div class="filter-by-location">
-        <ui-select multiple ng-model="filters.byLocations" theme="bootstrap">
-          <ui-select-match placeholder="Select locations...">{{$item}}</ui-select-match>
-          <ui-select-choices repeat="location in model.locations | filter: $select.search">
-            <div ng-bind-html="location | highlight: $select.search"></div>
-          </ui-select-choices>
-        </ui-select>
-      </div><!-- /.filter-by-location -->
+    <div class="filters container-fluid">
+      <div class="row">
+        <div class="filter-by-all col-xs-6">
+          <div class="input-group">
+            <span class="input-group-addon" id="filters-all-fields">Filter</span>
+            <input type="text" class="form-control" placeholder="Filter" aria-describedby="filters-all-fields" ng-model="filters.query">
+          </div><!-- /.input-group -->
+        </div><!-- /.filter-by-all -->
+        <div class="filter-by-selected col-xs-2">
+          <label class="checkbox">
+            <input type="checkbox" data-ng-model="event.selected" data-ng-true-value="true" data-ng-false-value="false || undefined">My Preferites
+          </label>
+        </div><!-- /.filter-by-selected -->
+      </div></-- /.row -->
+      <div class="row">
+        <div class="filter-by-track col-xs-6">
+          <ui-select multiple ng-model="filters.byTracks" theme="bootstrap">
+            <ui-select-match placeholder="Select tracks...">{{$item}}</ui-select-match>
+            <ui-select-choices repeat="track in model.tracks | filter: $select.search">
+              <div ng-bind-html="track | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div><!-- /.filter-by-track -->
+        <div class="filter-by-location col-xs-6">
+          <ui-select multiple ng-model="filters.byLocations" theme="bootstrap">
+            <ui-select-match placeholder="Select locations...">{{$item}}</ui-select-match>
+            <ui-select-choices repeat="location in model.locations | filter: $select.search">
+              <div ng-bind-html="location | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+        </div><!-- /.filter-by-location -->
+      </div></-- /.row -->
     </div><!-- /.filters -->
 	</div>
 	<div class="panel-body row">
