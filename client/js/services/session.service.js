@@ -20,7 +20,7 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 // Session Service: to call rest api
 
 RicoApp.factory("SessionRestAPI", ['$resource', function($resource) {
-  return $resource('/demo/session.json'); //'http://nodejs:8080/sessions/:sid/:secret');
+  return $resource('demo/session.json'); //'http://nodejs:8080/sessions/:sid/:secret');
 }]);
 
 RicoApp.service('SessionService', ['SessionRestAPI', function(SessionRestAPI){
