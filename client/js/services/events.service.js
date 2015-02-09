@@ -28,6 +28,7 @@ RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(Ev
   this.tracks = null
   this.locations = null
   this.sid = 1
+  this.url = null
 
   // date formatting
   this.formatDate = function(date_string){
@@ -43,11 +44,12 @@ RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(Ev
 
   // singleton
   es = this
-  this.getEvents = function(callback){
-    if(this.events == null){
+  this.getEvents = function(url){
+    if(this.events == null || this.url != url){
+      // FIXME pass as parameter: url
       this.events = EventsRestAPI.query(function(data){
         // get session
-        var session = SessionService.getSession()
+        var session = SessionService.getSession(url)
         session.$promise.then(function(session){
           data.forEach(function(event){
             // set "selected" field (by session data)

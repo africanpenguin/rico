@@ -19,8 +19,8 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 
 // Controller for All Events View
 
-RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',
-		function($scope, $routeParams, $route, $rootScope, EventsService, $modal) {
+RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', 'SessionService', '$modal',
+		function($scope, $routeParams, $route, $rootScope, EventsService, SessionService, $modal) {
 
       $scope.open = function(event){
         $modal.open({
@@ -46,6 +46,9 @@ RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$root
       $scope.filters.query = ""
       $scope.filters.byTracks = [];
       $scope.filters.byLocations = [];
+
+      // SessionService.url.$promise.then(function(data){
+      $scope.model.session = SessionService;
 		}
 ]);
 

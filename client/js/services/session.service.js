@@ -25,14 +25,20 @@ RicoApp.factory("SessionRestAPI", ['$resource', function($resource) {
 
 RicoApp.service('SessionService', ['SessionRestAPI', function(SessionRestAPI){
   this.session = null
+  this.url = {}
 
   // singleton
-  this.getSession = function(sid){
-    if(this.session == null){
+  this.getSession = function(url, sid=null){
+    if(this.session == null || this.url != url){
+      this.url = url
       // this.session = []
       // es = this
       // TODO check if not exists, create one!
-      this.session = SessionRestAPI.get({ sid: sid })
+      args = null
+      if(sid){
+        args = { "sid": sid }
+      }
+      this.session = SessionRestAPI.get(args)
     }
     return this.session
   }

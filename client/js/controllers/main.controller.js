@@ -22,9 +22,12 @@ RicoApp.controller('MainCtrl', [
 		'$http',
 		'$location',
 		'$rootScope',
-		'SessionRestAPI',
-		function($scope, $http, $location, $rootScope, SessionRestAPI) {
+		'EventsService',
+		function($scope, $http, $location, $rootScope, EventsService) {
+
+      $scope.openCalendar = function(url){
+        this.events = EventsService.getEvents(url);
+        $location.path('Gui/Events/All');
+      }
 		}
 ]);
-
-

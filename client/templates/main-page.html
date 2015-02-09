@@ -21,5 +21,5 @@
       <input type="text" class="form-control" placeholder="E.g. https://fosdem.org/2015/schedule/xml" aria-describedby="xml-url" ng-model="model.url">
       <span class="input-group-addon" id="xml-url">.xml</span>
   </div>
-  <div><a class="btn btn-primary btn-lg" href="#Gui/Events/All" role="button">Load</a></div>
+  <div><a class="btn btn-primary btn-lg" ng-click="openCalendar(model.url)" role="button">Load</a></div>
 </div><!-- /.jumbotron -->
