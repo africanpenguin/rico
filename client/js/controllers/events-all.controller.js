@@ -17,40 +17,6 @@ You should have received a copy of the GNU Affero General Public License along
 with Rico.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-RicoApp.filter('filterBySelectedTracks', function(){
-  return function(events, tracks){
-    if(tracks.length == 0){
-      // if nothing selected, return all events
-      return events;
-    }
-    // start filtering..
-    var filtered = [];
-    events.forEach(function(event){
-      if($.inArray(event.track, tracks) >= 0){
-        filtered.push(event)
-      }
-    })
-    return filtered;
-  };
-});
-
-RicoApp.filter('filterBySelectedLocations', function(){
-  return function(events, locations){
-    if(locations.length == 0){
-      // if nothing selected, return all events
-      return events;
-    }
-    // start filtering..
-    var filtered = [];
-    events.forEach(function(event){
-      if($.inArray(event.location, locations) >= 0){
-        filtered.push(event)
-      }
-    })
-    return filtered;
-  };
-});
-
 // Controller for All Events View
 
 RicoApp.controller('EventsAllCtrl', [ '$scope', '$routeParams', '$route', '$rootScope', 'EventsService', '$modal',

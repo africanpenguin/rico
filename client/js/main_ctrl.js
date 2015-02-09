@@ -44,16 +44,6 @@ RicoApp.config([
 		}
 ]);
 
-RicoApp.controller('MainCtrl', [
-		'$scope',
-		'$http',
-		'$location',
-		'$rootScope',
-		'SessionRestAPI',
-		function($scope, $http, $location, $rootScope, SessionRestAPI) {
-		}
-]);
-
 // TODO convert in "save in Favourites"
 RicoApp.controller('eventChooseCtrl', [
 		'$scope',
