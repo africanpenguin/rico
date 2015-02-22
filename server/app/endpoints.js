@@ -24,6 +24,31 @@ module.exports.process = function (server, db) {
   var events = db.collection('events');
   var sessions = db.collection('sessions');
 
+  server.post('/events', function (req, res, next){
+    // url to parse for import the schedule
+    var url = req.body['url'];
+    var http = require('https');
+    // load url
+    http.get(url, function(resFile) {
+      var fullFile = "";
+      resFile.on('data', function(chunk){
+        fullFile += chunk;
+      });
+      // start parsing..
+      resFile.on('end', function(chunk){
+        xml2js = require('xml2js');
+        var parser = new xml2js.Parser();
+        parser.parseString(fullFile, function (err, parseResult) {
+          console.log(parseResult['schedule']);
+          var title = parseResult['schedule']['conference'][0]['title'];
+          // FIXME parse not only the title... XD
+          res.send({"title": title});
+        });
+      });
+    });
+    return next();
+  })
+
   server.get('/events', function (req, res, next) {
     events.find().toArray(function (err, items) {
       assert.equal(null, err);

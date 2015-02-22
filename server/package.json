@@ -14,7 +14,8 @@
     "mongodb": "~1.4",
     "restify": "~2.8",
     "stdio": "^0.2.7",
-    "xml2js": "^0.4.4"
+    "xml2js": "^0.4.4",
+    "request": "*"
   },
   "devDependencies": {
     "supervisor": "*"
