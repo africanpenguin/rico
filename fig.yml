@@ -24,4 +24,4 @@ mongodb:
     - "28017:28017"
   volumes:
     - db:/data/:rw
-
+  command: --smallfiles
