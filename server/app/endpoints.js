@@ -24,28 +24,48 @@ module.exports.process = function (server, db) {
   var events = db.collection('events');
   var sessions = db.collection('sessions');
 
+  move_key = function(obj, orig, dest){
+    obj[dest] = obj[orig]
+    delete obj[orig]
+  }
+
   server.post('/events', function (req, res, next){
     // url to parse for import the schedule
     var url = req.body['url'];
     var http = require('https');
+    var ical = require('ical');
     // load url
-    http.get(url, function(resFile) {
-      var fullFile = "";
-      resFile.on('data', function(chunk){
-        fullFile += chunk;
-      });
-      // start parsing..
-      resFile.on('end', function(chunk){
-        xml2js = require('xml2js');
-        var parser = new xml2js.Parser();
-        parser.parseString(fullFile, function (err, parseResult) {
-          console.log(parseResult['schedule']);
-          var title = parseResult['schedule']['conference'][0]['title'];
-          // FIXME parse not only the title... XD
-          res.send({"title": title});
-        });
-      });
+    //res.send({"ciao":"fuu"})
+    var ret = [];
+    ical.fromURL(url, {}, function(err, data){
+      for(var k in data){
+        if(data.hasOwnProperty(k)){
+          var ev = data[k]
+          if(ev instanceof Object && ev['type'] == 'VEVENT'){
+            move_key(data[k], 'categories', 'tracks')
+            // TODO I'll can have multiple categories
+            // console.log(typeof data[k]['tracks'])
+            // data[k]['tracks'] = data[k]['tracks'][0]
+            move_key(data[k], 'summary', 'title')
+            delete data[k]['param']
+            if(data[k]['attendee'] instanceof Object){
+              data[k]['speakers'] = [ data[k]['attendee']['params'][2] ]
+              delete data[k]['attendee']
+            }
+
+            ret.push(ev)
+          }
+        }
+      }
+      events.insert(ret, function (err, result) {
+          res.send({
+            'ok': 'fuu'
+          });
+          next();
+        })
+      res.send(ret);
     });
+
     return next();
   })
 
