@@ -32,39 +32,13 @@ module.exports.process = function (server, db) {
   server.post('/events', function (req, res, next){
     // url to parse for import the schedule
     var url = req.body['url'];
-    var http = require('https');
-    var ical = require('ical');
-    // load url
-    //res.send({"ciao":"fuu"})
-    var ret = [];
-    ical.fromURL(url, {}, function(err, data){
-      for(var k in data){
-        if(data.hasOwnProperty(k)){
-          var ev = data[k]
-          if(ev instanceof Object && ev['type'] == 'VEVENT'){
-            move_key(data[k], 'categories', 'tracks')
-            // TODO I'll can have multiple categories
-            // console.log(typeof data[k]['tracks'])
-            // data[k]['tracks'] = data[k]['tracks'][0]
-            move_key(data[k], 'summary', 'title')
-            delete data[k]['param']
-            if(data[k]['attendee'] instanceof Object){
-              data[k]['speakers'] = [ data[k]['attendee']['params'][2] ]
-              delete data[k]['attendee']
-            }
-
-            ret.push(ev)
-          }
-        }
-      }
-      events.insert(ret, function (err, result) {
+    var mev = require('./events-module.js');
+    mev.load(events, url, function (err, result) {
           res.send({
             'ok': 'fuu'
           });
           next();
-        })
-      res.send(ret);
-    });
+        });
 
     return next();
   })
@@ -90,39 +64,26 @@ module.exports.process = function (server, db) {
     });
   });
 
-  server.post('/sessions', function (req, res, next) {
-    var url_id;
-    var depth = 0;
-    var gen_id = function (err, items) {
-      if (depth > 20) { // Recursion depth limit
-        res.send(503, 'Could not generate a new ID.');
-        next();
-      } else if (items !== null) { // Recursive case
-        url_id = Math.random().toString(36).substr(2,7);
-        depth++;
-        sessions.findOne({'url_id': url_id}, gen_id);
-      } else { // Base case
-        assert(req.params.hasOwnProperty('favourites'));
-
-        var secret = Math.random().toString(36).substr(2,7);
-        sessions.insert({
-          'url_id': url_id,
-          'secret': secret,
-          'favourites': req.params.favourites
-        }, function (err, result) {
-          res.send({
-            'url_id': url_id,
-            'secret': secret
-          });
-          next();
-        });
-      }
-    };
-    gen_id(null, []);
+  // FIXME Removeeeeee! (only for test)
+  server.del('/events', function(req, res, next){
+    db.dropCollection('events', function(err, result){
+      res.send({'res': 'ok'});
+      return next();
+    });
   });
 
-  server.get('/sessions/:id', function (req, res, next) {
-    sessions.findOne({url_id: req.params.id}, function (err, item) {
+  server.post('/sessions', function (req, res, next) {
+    assert(req.params.hasOwnProperty('favourites'));
+    var mse = require('./session-module.js');
+    mse.add(sessions, req.params.favourites, function (err, result) {
+      res.send(result);
+      next();
+    });
+  });
+
+  server.get('/sessions/:url_id', function (req, res, next) {
+    var mse = require('./session-module.js');
+    mse.get(sessions, req.params.url_id, function (err, item) {
       assert.equal(null, err);
       if (item === null) {
         res.send(404, 'No session found.');
