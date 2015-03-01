@@ -25,8 +25,8 @@ module.exports.process = function (server, db) {
   var sessions = db.collection('sessions');
 
   move_key = function(obj, orig, dest){
-    obj[dest] = obj[orig]
-    delete obj[orig]
+    obj[dest] = obj[orig];
+    delete obj[orig];
   }
 
   server.post('/events', function (req, res, next){
@@ -44,7 +44,8 @@ module.exports.process = function (server, db) {
   })
 
   server.get('/events', function (req, res, next) {
-    events.find().toArray(function (err, items) {
+    var mev = require('./events-module.js');
+    mev.getAll(events, function (err, items) {
       assert.equal(null, err);
       res.send(items);
       return next();
@@ -52,7 +53,8 @@ module.exports.process = function (server, db) {
   });
 
   server.get('/events/:id', function (req, res, next) {
-    events.findOne({_id: ObjectID(req.params.id)}, function (err, item) {
+    var mev = require('./events-module.js');
+    mev.get(events, ObjectID(req.params.id), function (err, item) {
       assert.equal(null, err);
       if (item === null) {
         res.send(404, 'No event found.');
@@ -83,35 +85,33 @@ module.exports.process = function (server, db) {
 
   server.get('/sessions/:url_id', function (req, res, next) {
     var mse = require('./session-module.js');
-    mse.get(sessions, req.params.url_id, function (err, item) {
+    mse.get(sessions, req.params.url_id, null, function (err, item) {
       assert.equal(null, err);
       if (item === null) {
         res.send(404, 'No session found.');
-        return next();
       } else {
         delete(item.secret);
         res.send(item);
-        return next();
       }
+      return next();
     });
   });
 
-  server.put('/sessions/:id/:secret', function (req, res, next) {
-    sessions.findOne({url_id: req.params.id, secret: req.params.secret}, function (err, item) {
-      assert.equal(null, err);
-      if (item === null) {
-        res.send(404, 'Bad id/secret combination.');
-        return next();
-      } else {
-        sessions.update({url_id: req.params.id}, {
-          $set: {
-            favourites: req.params.favourites
-          }}, function (err, result) {
-            assert.equal(null, err);
-            res.send(result);
+  server.put('/sessions/:url_id/:secret', function (req, res, next) {
+    var mse = require('./session-module.js');
+    mse.update(sessions, req.params.url_id,
+        req.params.secret, req.params.favourites,
+        function (err, item) {
+          console.log(item);
+          if(err || item === null){
+            res.send(405, err);
             return next();
-          });
-      }
-    });
+          }
+          console.log("hello");
+
+          delete(item.secret);
+          res.send(item);
+          return next();
+        });
   });
 };

@@ -49,3 +49,13 @@ exports.load = function(events, url, callback){
     events.insert(ret, callback);
   });
 };
+
+exports.getAll = function(events, callback){
+  events.find().toArray(function (err, items) {
+    callback(err, items);
+  });
+}
+
+exports.get = function(events, id, callback){
+  events.findOne({_id: id}, callback);
+}

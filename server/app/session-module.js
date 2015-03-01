@@ -29,6 +29,27 @@ exports.add = function(sessions, favourites, callback){
   }, callback);
 };
 
-exports.get = function(sessions, url_id, callback){
-  sessions.findOne({url_id: url_id}, callback);
+exports.get = function(sessions, url_id, secret, callback){
+  var find = {url_id: url_id};
+  if(secret){
+    find['secret'] = secret;
+  }
+  sessions.findOne(find, callback);
+};
+
+exports.update = function(sessions, url_id, secret, favourites, callback){
+  exports.get(sessions, url_id, secret, function(err, item){
+    if(err || item === null){
+      callback('Bad id/secret combination.', null);
+    }
+    sessions.update({url_id: url_id}, {
+      $set: {
+        favourites: favourites
+      }}, function (err, result) {
+        callback(err, {
+          url_id: url_id,
+          favourites: favourites
+        });
+      });
+  });
 };
