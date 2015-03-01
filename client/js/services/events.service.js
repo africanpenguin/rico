@@ -21,7 +21,7 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 
 RicoApp.factory("EventsRestAPI", ['$resource', function($resource) {
   // return $resource('demo/events.json');//('http://nodejs:8080/events');
-  return $resource('http://0.0.0.0:8001/events');
+  return $resource('http://0.0.0.0:8001/events/id', {id: '@_id'});
 }]);
 
 RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(EventsRestAPI, SessionService){
@@ -35,12 +35,18 @@ RicoApp.service('EventsService', ['EventsRestAPI', 'SessionService', function(Ev
   this.formatDate = function(date_string){
     var myDays= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
-      var s_date = new Date(date_string)
-      var sd = myDays[s_date.getDay()]
-      var sh = s_date.getHours()
-      var sm = s_date.getMinutes()
+    var s_date = new Date(date_string)
+    var sd = myDays[s_date.getDay()]
+    var sh = s_date.getHours()
+    var sm = s_date.getMinutes()
 
-      return sd + " " + sh + ":" + sm
+    return sd + " " + sh + ":" + sm
+  };
+
+  this.loadUrl = function(url){
+    EventsRestAPI.save({url: url}, function(data){
+
+    });
   };
 
   // singleton

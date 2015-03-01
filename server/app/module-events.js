@@ -26,6 +26,12 @@ with Rico.  If not, see <http://www.gnu.org/licenses/>.
 exports.load = function(events, url, callback){
   var ical = require('ical');
   var ret = [];
+
+  move_key = function(obj, orig, dest){
+    obj[dest] = obj[orig];
+    delete obj[orig];
+  }
+
   ical.fromURL(url, {}, function(err, data){
     for(var k in data){
       if(data.hasOwnProperty(k)){
@@ -46,7 +52,13 @@ exports.load = function(events, url, callback){
       }
     }
     // save collection in db
-    events.insert(ret, callback);
+    events.insert(ret, function(err, result){
+      if(err){
+        callback(err, result);
+      }else{
+        callback(err, ret);
+      }
+    });
   });
 };
 

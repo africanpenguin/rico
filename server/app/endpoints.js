@@ -24,23 +24,26 @@ module.exports.process = function (server, db) {
   var events = db.collection('events');
   var sessions = db.collection('sessions');
 
-  move_key = function(obj, orig, dest){
-    obj[dest] = obj[orig];
-    delete obj[orig];
-  }
-
   server.post('/events', function (req, res, next){
     // url to parse for import the schedule
     var url = req.body['url'];
     var mev = require('./module-events.js');
-    mev.load(events, url, function (err, result) {
-          res.send({
-            'ok': 'fuu'
-          });
-          next();
+    mev.load(events, url, function (err, event_list) {
+      if(err){
+        res.send(err, event_list);
+      }else{
+        var mse = require('./module-session.js');
+        mse.add(sessions, {}, function(err, retses){
+          if(err){
+            res.send(err, retses);
+          }else{
+            retses[0]['events'] = event_list;
+            res.send(retses);
+            return next();
+          }
         });
-
-    return next();
+      }
+    });
   })
 
   server.get('/events', function (req, res, next) {
