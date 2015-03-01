@@ -32,7 +32,7 @@ module.exports.process = function (server, db) {
   server.post('/events', function (req, res, next){
     // url to parse for import the schedule
     var url = req.body['url'];
-    var mev = require('./events-module.js');
+    var mev = require('./module-events.js');
     mev.load(events, url, function (err, result) {
           res.send({
             'ok': 'fuu'
@@ -44,7 +44,7 @@ module.exports.process = function (server, db) {
   })
 
   server.get('/events', function (req, res, next) {
-    var mev = require('./events-module.js');
+    var mev = require('./module-events.js');
     mev.getAll(events, function (err, items) {
       assert.equal(null, err);
       res.send(items);
@@ -53,7 +53,7 @@ module.exports.process = function (server, db) {
   });
 
   server.get('/events/:id', function (req, res, next) {
-    var mev = require('./events-module.js');
+    var mev = require('./module-events.js');
     mev.get(events, ObjectID(req.params.id), function (err, item) {
       assert.equal(null, err);
       if (item === null) {
@@ -76,7 +76,7 @@ module.exports.process = function (server, db) {
 
   server.post('/sessions', function (req, res, next) {
     assert(req.params.hasOwnProperty('favourites'));
-    var mse = require('./session-module.js');
+    var mse = require('./module-session.js');
     mse.add(sessions, req.params.favourites, function (err, result) {
       res.send(result);
       next();
@@ -84,7 +84,7 @@ module.exports.process = function (server, db) {
   });
 
   server.get('/sessions/:url_id', function (req, res, next) {
-    var mse = require('./session-module.js');
+    var mse = require('./module-session.js');
     mse.get(sessions, req.params.url_id, null, function (err, item) {
       assert.equal(null, err);
       if (item === null) {
@@ -98,7 +98,7 @@ module.exports.process = function (server, db) {
   });
 
   server.put('/sessions/:url_id/:secret', function (req, res, next) {
-    var mse = require('./session-module.js');
+    var mse = require('./module-session.js');
     mse.update(sessions, req.params.url_id,
         req.params.secret, req.params.favourites,
         function (err, item) {
